@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "9B4C633B-BF2B-438D-8C70-57CDF2ACBE17"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0F008F31-E27A-438D-99C9-718A4C88264E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../var/folders/w2/ktr6t6rs785cyp9k39d2sd8c0000gn/T/swift-generated-sources/@__swiftmacro_12Todo_List_v233_32126352EFE8D5A636718409F928DAEBLl7PreviewfMf_.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1"
+            endingLineNumber = "1"
+            landmarkName = "$s12Todo_List_v233_32126352EFE8D5A636718409F928DAEBLl7PreviewfMf_15PreviewRegistryfMu_"
+            landmarkType = "37">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0264E9DF-F1FD-4506-AD66-73E3DED3DDD4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Todo List v2/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "41A96F00-CDB2-449A-9171-F22B8981FD85"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Todo List v2/MainiOSView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "previews"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "41A96F00-CDB2-449A-9171-F22B8981FD85 - ae1b1b887552a9bf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Todo_List_v2.MainView_preview.previews.getter : some"
+                  moduleName = "Todo List v2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/isaac/Desktop/Todo%20List%20v2/Todo%20List%20v2/MainiOSView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "41"
+                  endingLineNumber = "41"
+                  offsetFromSymbolStart = "164">
+               </Location>
+               <Location
+                  uuid = "41A96F00-CDB2-449A-9171-F22B8981FD85 - ae1b1b887552a9bf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Todo_List_v2.MainView_preview.previews.getter : some"
+                  moduleName = "Todo List v2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/isaac/Desktop/Todo%20List%20v2/Todo%20List%20v2/MainiOSView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "41"
+                  endingLineNumber = "41"
+                  offsetFromSymbolStart = "232">
+               </Location>
+               <Location
+                  uuid = "41A96F00-CDB2-449A-9171-F22B8981FD85 - ae1b1b887552aa3b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Todo_List_v2.MainView_preview.previews.getter : some"
+                  moduleName = "Todo List v2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/isaac/Desktop/Todo%20List%20v2/Todo%20List%20v2/MainiOSView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "164">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
