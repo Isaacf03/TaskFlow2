@@ -18,6 +18,7 @@ struct IOSView: View {
     @State var superfield = ""
     @State var isPresssed = false
     @State var showOptions = false
+    @State var cat_name = ""
     
     
     var body: some View {
@@ -36,7 +37,10 @@ struct IOSView: View {
                             categoryView(categoryName: category.category, taskManager: taskManager, newTaskName: newTask)
                                 .frame(height: 200)
                         }
-                        .onDelete{taskManager.tasks.remove(atOffsets: $0)}
+                        .onDelete{ indexSet in
+                            taskManager.removeCategory(atOffsets: indexSet)
+
+                        }
                     }
                     .toolbar{
                         EditButton()
@@ -46,6 +50,7 @@ struct IOSView: View {
 //                            taskManager.saveCats()
                             taskManager.loadCats()
                             print(_taskManager.wrappedValue.tasks)
+                            print(_taskManager.wrappedValue.deletedTask)
                     }
                 }
 //                HStack{
@@ -339,9 +344,12 @@ struct CategorizedTask:Identifiable,Codable{
     var tasks: [Task]
 }
 
+
 //ViewModel
 class TaskManager: ObservableObject{
     @Published var tasks: [CategorizedTask] = []
+    @Published var deletedTask: [CategorizedTask] = []
+    
       func didSet(){
           saveCats()
       }
@@ -360,9 +368,10 @@ class TaskManager: ObservableObject{
         }
         
     }
-//    func removeCategory(){
-//        if tasks.contains(where: {$0.category == task.})
-//    }
+    func removeCategory(atOffsets offsets: IndexSet) {
+        deletedTask.append(contentsOf: offsets.map {tasks[$0]})
+        tasks.remove(atOffsets: offsets)
+    }
     
     func addTask(name: String, to categoryName: String) {
         // checks if its empty and doesnt add it
@@ -392,9 +401,16 @@ class TaskManager: ObservableObject{
 //    }
     
     
+    func addToDeletedTask(){
+        
+    }
+    
+    
     func clearAll(){
         tasks.removeAll()
+        deletedTask.append(tasks[0])
     }
+    
     func deleteTasks(at offsets: IndexSet, from category: String) {
         if let index = tasks.firstIndex(where: { $0.category == category }) {
             tasks[index].tasks.remove(atOffsets: offsets)

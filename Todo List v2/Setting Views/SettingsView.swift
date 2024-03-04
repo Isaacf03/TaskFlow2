@@ -14,7 +14,7 @@ struct SettingsView: View {
                     NavigationLink("Behaviors", destination: Behaviors(top: $vm.settings.TopOrBottom))
                 }
                 Section(header: Text("Archive")) {
-                    NavigationLink("Deleted Categories", destination: TextView())
+                    NavigationLink("Deleted Categories", destination: Archives())
                     Toggle(isOn: $vm.settings.ArchiveEnabled) {
                         Text("Turn Off Archive")
                     }
@@ -40,7 +40,7 @@ struct SettingsView_Previews: PreviewProvider {
         let settingsModel = SettingsModel()
         let settingsViewModel = SettingsViewModel(settings: settingsModel)
         
-        return SettingsView(vm: settingsViewModel)
+        return SettingsView(vm: settingsViewModel).environmentObject(TaskManager())
     }
 }
 
