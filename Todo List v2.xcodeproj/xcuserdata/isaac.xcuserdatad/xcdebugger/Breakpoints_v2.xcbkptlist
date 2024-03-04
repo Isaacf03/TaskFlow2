@@ -46,8 +46,8 @@
             filePath = "Todo List v2/MainiOSView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
             landmarkName = "previews"
             landmarkType = "24">
             <Locations>
@@ -95,6 +95,21 @@
                   startingLineNumber = "37"
                   endingLineNumber = "37"
                   offsetFromSymbolStart = "164">
+               </Location>
+               <Location
+                  uuid = "41A96F00-CDB2-449A-9171-F22B8981FD85 - ae1b1b887552aa3b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Todo_List_v2.MainView_preview.previews.getter : some"
+                  moduleName = "Todo List v2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/isaac/Desktop/Todo%20List%20v2/Todo%20List%20v2/MainiOSView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "232">
                </Location>
             </Locations>
          </BreakpointContent>

@@ -10,18 +10,26 @@ import SwiftUI
 struct IOSView: View {
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var taskManager: TaskManager
+//    change to enviromentObject and add to the main view
+    @ObservedObject var settingsVm: SettingsViewModel
     @State var newCategory = ""
     @State var newTask = ""
     @State var ShowingADDpg = false
     @State var superfield = ""
+    @State var isPresssed = false
+    @State var showOptions = false
+    
     
     var body: some View {
         NavigationView{
             VStack(alignment:.leading){
-                addNewCategory(taskManager: taskManager, newCategory: $newCategory, height: 40, width: .infinity)
-                    .frame(height: 45)
-                    
-                ZStack(alignment:.bottom){
+                if settingsVm.settings.TopOrBottom == false{
+                    addNewCategory(taskManager: taskManager, newCategory: $newCategory, height: 40, width: .infinity)
+                        .frame(height: 45)
+                        .padding(.horizontal)
+                        
+                }
+                ZStack(alignment:.top){
     
                     List{
                         ForEach(taskManager.tasks){ category in
@@ -35,22 +43,38 @@ struct IOSView: View {
                     }
                     .listStyle(.plain)
                         .refreshable {
-                            taskManager.saveCats()
+//                            taskManager.saveCats()
                             taskManager.loadCats()
                             print(_taskManager.wrappedValue.tasks)
                     }
                 }
-                HStack{
-                    Spacer()
-                    Button("Showsheet"){
-                        ShowingADDpg.toggle()
-                    }
-                    .sheet(isPresented: $ShowingADDpg, content: {
-                        TaskForm(NameofTask: "test", SchedualON: true, selectedDate: Date(), Priority: 5)
-                            .presentationDetents([.medium])
-                            .presentationDragIndicator(.automatic)
-                    })
-                    .padding(.trailing)
+//                HStack{
+//                    Spacer()
+//                    SwipeOptionBTN(wasPressed: $isPresssed)
+//                        .onTapGesture {
+//                            isPresssed.toggle()
+//                        }
+//                        .sheet(isPresented: $isPresssed, content: {
+//                            TaskForm(NameofTask: "test", SchedualON: true, selectedDate: Date(), Priority: 5)
+//                                .presentationDetents([.fraction(0.52)])
+//                                .presentationDragIndicator(.visible)
+//                        })
+//                        .padding(.trailing)
+//                        .padding(.bottom)
+//                    
+////                    Button("Showsheet"){
+////                        ShowingADDpg.toggle()
+////                    }
+////                    .sheet(isPresented: $ShowingADDpg, content: {
+////                        TaskForm(NameofTask: "test", SchedualON: true, selectedDate: Date(), Priority: 5)
+////                            .presentationDetents([.fraction(0.4)])
+////                            .presentationDragIndicator(.automatic)
+////                    })
+//                }
+                if settingsVm.settings.TopOrBottom == true{
+                    addNewCategory(taskManager: taskManager, newCategory: $newCategory, height: 40, width: .infinity)
+                        .frame(height: 45)
+                        .padding(.bottom)
                 }
             }
         
@@ -65,7 +89,7 @@ struct IOSView: View {
 struct IOSView_preview: PreviewProvider{
     static var previews: some View{
 //        MainiOSView().environmentObject(TaskManager())
-        IOSView().environmentObject(TaskManager())
+        IOSView(settingsVm: SettingsViewModel(settings: SettingsModel())).environmentObject(TaskManager())
     }
 }
 
@@ -96,7 +120,6 @@ struct FloatingButton: View {
     }
     
 }
-
 
 struct addNewCategory: View {
     @ObservedObject var taskManager: TaskManager
@@ -191,17 +214,25 @@ struct categoryHeaderView: View {
     }
 }
 
-
-
-
 struct categoryView: View {
     var categoryName: String
-    @ObservedObject var taskManager = TaskManager()
+    @ObservedObject var taskManager: TaskManager
 //    @EnvironmentObject var taskManger: TaskManager
     @Environment(\.colorScheme) var colorScheme
     @State var newTaskName = ""
 
     var body: some View {
+//        VStack{
+//            List{
+//                ForEach(taskManager.tasks){ task in
+//                    Text(task.category)
+//                    
+//                }
+//            }
+//            .refreshable {
+//                taskManager.loadCats()
+//            }
+//        }
         VStack{
             if let categorizedTask = taskManager.tasks.first(where: { $0.category == categoryName}){
                 
@@ -237,11 +268,6 @@ struct categoryView: View {
     }
 }
 
-
-
-
-
-
 struct TextView:View {
     @ObservedObject var tm = TaskManager()
     var body: some View {
@@ -274,8 +300,28 @@ struct TaskRow:View {
     }
 }
 
+struct MiniFormView:View {
+    @State var text: String = ""
+    var body: some View {
+        NavigationView{
+            Form{
+                Section("Task Row") {
+                    TextField("Test", text: $text)
+                    TextField("Test", text: $text)
+                    TextField("Test", text: $text)
+
+                }
+            }
+        }
+    }
+}
 
 
+
+
+
+
+//Model
 struct Task: Identifiable, Codable{
     var id = UUID()
     var taskName: String
@@ -293,26 +339,24 @@ struct CategorizedTask:Identifiable,Codable{
     var tasks: [Task]
 }
 
-
+//ViewModel
 class TaskManager: ObservableObject{
     @Published var tasks: [CategorizedTask] = []
-    func didSet(){
-        saveCats()
-    }
-    private let taskKey = "tasks"
-    
-    init(){
-        loadCats()
-    }
-//    func changeName(name:String){
-//        
-//    }
+      func didSet(){
+          saveCats()
+      }
+      private let taskKey = "tasks"
+      
+      init(){
+          loadCats()
+      }
+      
     
     func addCategory(name:String){
         let newCategory = CategorizedTask(category: name, tasks: [])
         if !tasks.contains(where: {$0.category == newCategory.category}){
             tasks.append(newCategory)
-            
+//            saveCats()
         }
         
     }
@@ -327,7 +371,7 @@ class TaskManager: ObservableObject{
             let newTask = Task(taskName: name, isCompleted: false, isScedualed: false, priority: 0, dueDate: Date())
             DispatchQueue.main.async {
                 self.tasks[index].tasks.append(newTask)
-                self.saveCats()
+//                self.saveCats()
             }
         }
     }
@@ -355,7 +399,7 @@ class TaskManager: ObservableObject{
         if let index = tasks.firstIndex(where: { $0.category == category }) {
             tasks[index].tasks.remove(atOffsets: offsets)
         }
-        saveCats()
+//        saveCats()
     }
 
     func saveCats(){
@@ -365,7 +409,7 @@ class TaskManager: ObservableObject{
     }
     
     func loadCats(){
-        if let savedTasks = UserDefaults.standard.object(forKey: taskKey) as? Data {
+        if let savedTasks = UserDefaults.standard.object(forKey: "tasks") as? Data {
             if let decodedTasks = try? JSONDecoder().decode([CategorizedTask].self, from: savedTasks){
                 self.tasks = decodedTasks
             }

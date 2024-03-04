@@ -38,6 +38,19 @@ struct TaskForm: View {
                             DatePicker("Desc",selection: $selectedDate, displayedComponents: displayComps())
                         }
                     }
+        
+                HStack {
+                    Spacer()
+                    Button{
+                        print("pressed")
+                    } label: {
+                        Text("Save")
+                    }
+                    Spacer()
+                }
+                
+
+                
             }
             Button("Save"){
                 

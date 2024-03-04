@@ -27,8 +27,8 @@ struct CleanIOSView: View {
                         }
                     }.listStyle(.plain)
                         .refreshable {
-                            taskManager.saveCats()
-                            taskManager.loadCats()
+//                            taskManager.saveCats()
+//                            taskManager.loadCats()
                             print(_taskManager.wrappedValue.tasks)
                     }
                     FloatingButton(presented: false)

@@ -9,9 +9,11 @@ import SwiftUI
 
 struct MainiOSView: View {
     @Environment(\.colorScheme) var colorScheme
+    let settingsModel = SettingsModel()
+    let settingsViewModel = SettingsViewModel(settings: SettingsModel())
     var body: some View {
         TabView{
-            IOSView()
+            IOSView(settingsVm: settingsViewModel)
                 .tabItem {
                     Image(systemName: "list.bullet.rectangle.portrait")
                 }
@@ -19,11 +21,11 @@ struct MainiOSView: View {
                 .tabItem {
                     Image(systemName: "calendar")
                 }
-            SchedualView()
+            ScheduleView()
                 .tabItem {
                     Image(systemName: "chart.bar.doc.horizontal")
                 }
-            SettingsView()
+            SettingsView(vm: settingsViewModel)
                 .tabItem {
                     Image(systemName: "gear")
                 }
