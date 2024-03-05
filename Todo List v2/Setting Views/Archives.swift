@@ -11,22 +11,36 @@ struct Archives: View {
     @EnvironmentObject var taskManager: TaskManager
     var body: some View {
         NavigationView{
-            List{
-                
-                if taskManager.deletedTask.isEmpty{
-                    Text("Nothing here yet")
-                }
-                else{
-                    ForEach(taskManager.deletedTask){ cat in
-                        Text(cat.category)
-                    }
-                    
-                }   
+            if taskManager.deletedTask.isEmpty{
+                Text("No Deleted Categories Yet :(")
             }
-            .navigationTitle("Deleted Categories")
+            else{
+                List{
+                    ForEach(taskManager.deletedTask){ cat in
+//                        Text(cat.category)
+                        NavigationLink(cat.category, destination: DeletedTasks())
+                    }
+                }
+                
+            }
+        }
+        .navigationTitle("Deleted Categories")
+    }
+}
+
+
+struct DeletedTasks: View{
+    @EnvironmentObject var taskManger: TaskManager
+    var body: some View{
+        ForEach(taskManger.deletedTask){ cat in
+            ForEach(cat.tasks){ task in
+                Text(task.taskName)
+                
+            }
         }
     }
 }
+
 
 #Preview {
     Archives().environmentObject(TaskManager())

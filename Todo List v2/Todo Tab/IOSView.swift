@@ -24,12 +24,14 @@ struct IOSView: View {
     var body: some View {
         NavigationView{
             VStack(alignment:.leading){
+//                Enter a new Category Bar
                 if settingsVm.settings.TopOrBottom == false{
                     addNewCategory(taskManager: taskManager, newCategory: $newCategory, height: 40, width: .infinity)
                         .frame(height: 45)
                         .padding(.horizontal)
                         
                 }
+//              The List view for the Categories
                 ZStack(alignment:.top){
     
                     List{
@@ -44,13 +46,21 @@ struct IOSView: View {
                     }
                     .toolbar{
                         EditButton()
+                        Button {
+                            taskManager.saveCats()
+                            print("saved")
+                            print(_taskManager.wrappedValue.tasks)
+                        } label: {
+                            Text("Save Cats")
+                        }
+
                     }
                     .listStyle(.plain)
                         .refreshable {
 //                            taskManager.saveCats()
                             taskManager.loadCats()
                             print(_taskManager.wrappedValue.tasks)
-                            print(_taskManager.wrappedValue.deletedTask)
+                            print("deleted cats",_taskManager.wrappedValue.deletedTask)
                     }
                 }
 //                HStack{
@@ -162,6 +172,7 @@ struct addNewCategory: View {
 
                     Button("Clear"){
                         taskManager.clearAll()
+                        taskManager.addToDeletedTask()
                     }
                     .padding(.trailing)
 
@@ -407,8 +418,8 @@ class TaskManager: ObservableObject{
     
     
     func clearAll(){
+//        tasks.insert(contentsOf: tasks, at: deletedTask)
         tasks.removeAll()
-        deletedTask.append(tasks[0])
     }
     
     func deleteTasks(at offsets: IndexSet, from category: String) {
