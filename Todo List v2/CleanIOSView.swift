@@ -16,7 +16,7 @@ struct CleanIOSView: View {
     var body: some View {
         NavigationView{
             VStack(alignment:.leading){
-                addNewCategory(taskManager: taskManager, newCategory: $newCategory, height: 40, width: .infinity)
+                addNewCategory(taskManager: taskManager, newCategory: newCategory, height: 40, width: .infinity)
                     .frame(height: 45)
                     
                 ZStack(alignment:.bottom){

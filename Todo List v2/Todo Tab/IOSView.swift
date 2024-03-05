@@ -26,7 +26,7 @@ struct IOSView: View {
             VStack(alignment:.leading){
 //                Enter a new Category Bar
                 if settingsVm.settings.TopOrBottom == false{
-                    addNewCategory(taskManager: taskManager, newCategory: $newCategory, height: 40, width: .infinity)
+                    addNewCategory(taskManager: taskManager, newCategory: newCategory, height: 40, width: .infinity)
                         .frame(height: 45)
                         .padding(.horizontal)
                         
@@ -57,10 +57,10 @@ struct IOSView: View {
                     }
                     .listStyle(.plain)
                         .refreshable {
-//                            taskManager.saveCats()
-                            taskManager.loadCats()
+                            taskManager.saveCats()
                             print(_taskManager.wrappedValue.tasks)
                             print("deleted cats",_taskManager.wrappedValue.deletedTask)
+                            taskManager.loadCats()
                     }
                 }
 //                HStack{
@@ -87,7 +87,7 @@ struct IOSView: View {
 ////                    })
 //                }
                 if settingsVm.settings.TopOrBottom == true{
-                    addNewCategory(taskManager: taskManager, newCategory: $newCategory, height: 40, width: .infinity)
+                    addNewCategory(taskManager: taskManager, newCategory: newCategory, height: 40, width: .infinity)
                         .frame(height: 45)
                         .padding(.bottom)
                 }
@@ -138,7 +138,7 @@ struct FloatingButton: View {
 
 struct addNewCategory: View {
     @ObservedObject var taskManager: TaskManager
-    @Binding var newCategory: String
+    @State var newCategory: String
     @State var height: CGFloat
     @State var width: CGFloat
     @State var SearchClear: Bool = false
@@ -152,16 +152,20 @@ struct addNewCategory: View {
                     .frame(maxWidth: .infinity)
                 
                 HStack{
-                    TextField("Enter A New Category", text: $newCategory, onCommit: {
-                                    if !newCategory.isEmpty {
-                                        taskManager.addCategory(name: newCategory)
-                                        newCategory = "" // Clear the TextField after adding
-                                    }
-                                })
+                    TextField("Enter A New Category", text: $newCategory)
                         .textFieldStyle(.plain)
                         .frame(height: height)
                         .accentColor(colorScheme == .dark ? .white : .black)
-                        .multilineTextAlignment(.center)
+                        .padding(.leading)
+                        .onSubmit {
+                            if !newCategory.isEmpty {
+                                taskManager.addCategory(name: newCategory)
+                                print("submited")
+                                newCategory = ""
+                                taskManager.saveCats()
+                            }
+
+                        }
                     Button("Add"){
                         if !newCategory.isEmpty{
                             taskManager.addCategory(name: newCategory)
@@ -171,8 +175,10 @@ struct addNewCategory: View {
                     .padding(.trailing)
 
                     Button("Clear"){
-                        taskManager.clearAll()
-                        taskManager.addToDeletedTask()
+                        newCategory = ""
+//                        taskManager.clearAll()
+//                        taskManager.addToDeletedTask()
+//                        taskManager.saveCats()
                     }
                     .padding(.trailing)
 
@@ -205,10 +211,18 @@ struct categoryHeaderView: View {
     @Environment(\.colorScheme) var colorScheme
     var body: some View {
         HStack{
-            TextField("Enter Changed Name",text: $category)
+            TextField("Enter Name",text: $category)
                 .font(.title3)
-            TextField("Enter new Task", text: $newTask)
+                .onSubmit {
+                    print("name changed")
+                }
+            TextField("Enter Task", text: $newTask)
                 .textFieldStyle(PlainTextFieldStyle())
+                .onSubmit {
+                    viewModel.addTask(name: newTask, to: category)
+                    newTask = ""
+                    viewModel.saveCats()
+                }
             #if os(macOS)
                 .onKeyPress(keys:[.return]){_ in
                     viewModel.addTask(name: newTask, to: category)
