@@ -9,22 +9,30 @@ import SwiftUI
 
 @main
 struct Todo_List_v2App: App {
+#if os(iOS)
     @StateObject var taskManager = TaskManager()
+    @StateObject var svm = SettingsViewModel(settings: SettingsModel())
+#endif
     var body: some Scene {
         WindowGroup {
             #if os(iOS)
             MainiOSView()
-                
+                .onAppear{
+                    svm.opps()
+                }
             #endif
+            
             #if os(macOS)
             MacOSView()
 
             #endif
         }
+        #if os(iOS)
         .environmentObject(taskManager)
+        #endif
     }
 }
-
+#if os(iOS)
 @propertyWrapper
 struct UserDefaulted<T: Codable> {
     let key: String
@@ -48,3 +56,4 @@ struct UserDefaulted<T: Codable> {
         }
     }
 }
+#endif

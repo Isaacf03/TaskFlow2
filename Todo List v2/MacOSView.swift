@@ -4,15 +4,21 @@
 //
 //  Created by Isaac Fajardo on 1/25/24.
 //
-
+#if os(macOS)
 import SwiftUI
 
 struct MacOSView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+
+            HSplitView(content: {
+                Text("Top")
+                Text("Bottom")
+            })
+        
     }
 }
 
 #Preview {
     MacOSView()
 }
+#endif

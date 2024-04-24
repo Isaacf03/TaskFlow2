@@ -5,6 +5,7 @@
 //  Created by Isaac Fajardo on 2/11/24.
 //
 
+#if os(iOS)
 import SwiftUI
 
 struct CleanIOSView: View {
@@ -12,7 +13,7 @@ struct CleanIOSView: View {
     @EnvironmentObject var taskManager: TaskManager
     @State var newCategory = ""
     @State var newTask = ""
-    
+    @State var isExpanded = false
     var body: some View {
         NavigationView{
             VStack(alignment:.leading){
@@ -22,7 +23,7 @@ struct CleanIOSView: View {
                 ZStack(alignment:.bottom){
                     List{
                         ForEach(taskManager.tasks){ category in
-                            categoryView(categoryName: category.category, taskManager: taskManager, newTaskName: newTask)
+                            categoryView(categoryName: category.category, expanded: $isExpanded, taskManager: taskManager, newTaskName: newTask)
                                 .frame(height: 200)
                         }
                     }.listStyle(.plain)
@@ -155,3 +156,4 @@ struct CleanIOSView: View {
 //    }
 //}
 //}
+#endif

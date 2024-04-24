@@ -4,6 +4,7 @@
 //
 //  Created by Isaac Fajardo on 3/4/24.
 //
+#if os(iOS)
 
 import SwiftUI
 
@@ -45,3 +46,4 @@ struct DeletedTasks: View{
 #Preview {
     Archives().environmentObject(TaskManager())
 }
+#endif

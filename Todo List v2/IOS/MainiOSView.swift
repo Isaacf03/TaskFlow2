@@ -5,6 +5,7 @@
 //  Created by Isaac Fajardo on 2/8/24.
 //
 
+#if os(iOS)
 import SwiftUI
 
 struct MainiOSView: View {
@@ -17,11 +18,13 @@ struct MainiOSView: View {
                 .tabItem {
                     Image(systemName: "list.bullet.rectangle.portrait")
                 }
-            CalenderTest()
+
+//            Coming Soon
+            ComingSoon()
                 .tabItem {
                     Image(systemName: "calendar")
                 }
-            ScheduleView()
+            ComingSoon()
                 .tabItem {
                     Image(systemName: "chart.bar.doc.horizontal")
                 }
@@ -39,3 +42,4 @@ struct MainView_preview: PreviewProvider{
         MainiOSView().environmentObject(TaskManager())
     }
 }
+#endif

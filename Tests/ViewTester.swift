@@ -4,7 +4,7 @@
 //
 //  Created by Isaac Fajardo on 1/18/24.
 //
-
+#if os(iOS)
 import SwiftUI
 
 struct UITestP1View: View {
@@ -129,3 +129,4 @@ struct NewCatFieldView: View {
 }
 
 
+#endif

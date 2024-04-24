@@ -4,7 +4,7 @@
 //
 //  Created by Isaac Fajardo on 1/26/24.
 //
-
+#if os(iOS)
 import SwiftUI
 
 struct ContentView: View {
@@ -80,3 +80,4 @@ struct Item: Identifiable {
     let id: Int
     let name: String
 }
+#endif
